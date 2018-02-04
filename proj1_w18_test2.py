@@ -184,10 +184,29 @@ class TestClasses (unittest.TestCase):
 ############################
 #     Part 3
 ############################
-	
 
 
+class TestResults(unittest.TestCase):
 
+	wide_query1 = proj1.get_itunes_data("baby")
+	wide_query2 = proj1.get_itunes_data("love")
 
+	narrow_query1 = proj1.get_itunes_data("Frequenzfett")
+	narrow_query2 = proj1.get_itunes_data("Minor Swag")
+
+	trash_query1 = proj1.get_itunes_data("sad;lkew;ilasoi")
+	trash_query2 = proj1.get_itunes_data("776s9s99")
+
+	def testWide(self):
+		self.assertEqual(len(TestResults.wide_query1),50)
+		self.assertEqual(len(TestResults.wide_query2),50)
+
+	def testNarrow(self):
+		self.assertLessEqual(len(TestResults.narrow_query1),5)
+		self.assertLessEqual(len(TestResults.narrow_query2),5)
+
+	def testTrash(self):
+		self.assertEqual(len(TestResults.trash_query1),0)
+		self.assertEqual(len(TestResults.trash_query2),0)
 
 unittest.main(verbosity=2)
