@@ -164,8 +164,6 @@ def get_itunes_data(term):
 # User interface
 ###############################
 
-
-
 def user_query(search_term):
 	print("Welcome to the iTunes data portal! Wubbba lubbba dub dubbb!\n")
 
