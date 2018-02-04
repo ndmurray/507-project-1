@@ -51,7 +51,7 @@ class Song(Media):
 		return super().__str__() + " [{}]".format(self.genre)
 
 	def __len__(self):
-		return int(self.track_length / 1000) ##According to API docs track length returns in miliseconds - https://apple.co/2zHPSFZ
+		return int(int(self.track_length) / 1000) ##According to API docs track length returns in miliseconds - https://apple.co/2zHPSFZ
 
 #MOVIE SUBCLASS
 
@@ -72,7 +72,7 @@ class Movie(Media):
 		return super().__str__() + " [{}]".format(self.rating)
 
 	def __len__(self):
-		return int(self.movie_length / 60000) #Movie length also returned in miliseconds
+		return int(int(self.movie_length) / 60000) #Movie length also returned in miliseconds
 
 ## Other classes, functions, etc. should go here
 
@@ -164,84 +164,80 @@ def get_itunes_data(term):
 # User interface
 ###############################
 
-def user_query(search_term):
-	print("Welcome to the iTunes data portal! Wubbba lubbba dub dubbb!\n")
+# def user_query(search_term):
+# 	print("Welcome to the iTunes data portal! Wubbba lubbba dub dubbb!\n")
 
-	if search_term == "exit":
-		print("Okay, peace.")
-		exit()
-	else:
-		query_results = get_itunes_data(search_term)
+# 	if search_term == "exit":
+# 		print("Okay, peace.")
+# 		exit()
+# 	else:
+# 		query_results = get_itunes_data(search_term)
 
-		songs = []
-		movies = []
-		other = []
+# 		songs = []
+# 		movies = []
+# 		other = []
 
-		for item in query_results:
-			if isinstance(item,Song):
-				songs.append(item)
-			elif isinstance(item,Movie):
-				movies.append(item)
-			elif isinstance(item,Media):
-				other.append(item)
+# 		for item in query_results:
+# 			if isinstance(item,Song):
+# 				songs.append(item)
+# 			elif isinstance(item,Movie):
+# 				movies.append(item)
+# 			elif isinstance(item,Media):
+# 				other.append(item)
 
-		result_count = input("How many results you wanna preview from each category? ")
+# 		result_count = input("How many results you wanna preview from each category? ")
 
 
-		print(len(songs))
-		print(len(movies))
-		print(len(other))
+# 		print("Okay boss check out this preview:\n")
+# 		print("SONGS:\n")
+# 		if len(songs) == 0:
+# 			print("No songs boss.")
+# 		else:
+# 			num = 1
+# 			for song in songs[:int(result_count)]:
+# 				print(str(num) + ". " + str(song))
+# 				num += 1 
+# 			print("\n")
 
-		print("Okay boss check out this preview:\n")
-		print("SONGS:\n")
-		if len(songs) == 0:
-			print("No songs boss.")
-		else:
-			num = 1
-			for song in songs[:int(result_count)]:
-				print(str(num) + ". " + str(song))
-				num += 1 
-			print("\n")
+# 		print("MOVIES:\n")
+# 		if len(movies) == 0:
+# 			print("No movies chief.")
+# 		else:
+# 			for movie in movies[:int(result_count)]:
+# 				print(str(num) + ". " + str(movie))
+# 				num += 1
+# 			print("\n")
 
-		print("MOVIES:\n")
-		if len(movies) == 0:
-			print("No movies chief.")
-		else:
-			for movie in movies[:int(result_count)]:
-				print(str(num) + ". " + str(movie))
-				num += 1
-			print("\n")
+# 		print("OTHER MEDIA:\n")
+# 		if len(other) == 0:
+# 			print("No other media chief.\n")
+# 		else:
+# 			for other_item in other[:int(result_count)]:
+# 				print(str(num) + ". " + str(other_item))
+# 				num += 1
+# 			print("\n")
 
-		print("\nOTHER MEDIA:\n")
-		if len(other) == 0:
-			print("No other media chief.\n")
-		else:
-			for other_item in other[:int(result_count)]:
-				print(str(num) + ". " + str(other_item))
-				num += 1
-			print("\n")
-
-		full_list = songs + movies + other
+# 		full_list = songs + movies + other
 		
-		output = {}
+# 		output = {}
 
-		for item in range(num):
-			output[item] = full_list[item]
+# 		for item in range(num):
+# 			output[item] = full_list[item]
 
-		return output
+# 		return output
 
-search_term = input("What is the term you want to search biggity boss? If you don't want nothing, just write 'exit'\n")
-output = user_query(search_term)
+# search_term = input("What is the term you want to search biggity boss? If you don't want nothing, just write 'exit'\n")
+# output = user_query(search_term)
 
 
-follow_up = input("Enter a number for more info, or another search term, or exit.\n")
+# follow_up = input("Enter a number for more info, or another search term, or exit.\n")
 
-if int(follow_up) / int(follow_up) == 1:
-	print("Launching item #" + follow_up + " in web browser.")
-	webbrowser.open(output[int(follow_up)].url)
+# if int(follow_up) / int(follow_up) == 1:
+# 	print("Launching item #" + follow_up + " in web browser.")
+# 	webbrowser.open(output[int(follow_up)].url)
 
-else:
-	user_query(follow_up)
+# else:
+# 	user_query(follow_up)
 
 
 
